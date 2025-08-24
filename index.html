@@ -177,36 +177,34 @@
 
 <script>
 (function(){
-  const target = new Date('2025-08-26T24:59:59+05:30').getTime();
+  const target = new Date('2025-08-26T23:59:59+05:30').getTime();
   const el = document.getElementById('expiryCountdown');
 
-  function pad(n){ return n<10 ? '0'+n : n; }
+  function pad(n){ return n < 10 ? '0' + n : n; }
 
   function tick(){
     const now = Date.now();
-    let diff = Math.max(0, target - now);
+    let diff = Math.max(0, target - now);  // Prevent negative values
 
-    const s = Math.floor(diff/1000);
-    const hrs = Math.floor(s/3600);
-    const mins = Math.floor((s%3600)/60);
-    const secs = s%60;
+    const s = Math.floor(diff / 1000);
+    const hrs = Math.floor(s / 3600);
+    const mins = Math.floor((s % 3600) / 60);
+    const secs = s % 60;
 
+    // Update the countdown text in the span
     el.textContent = `${hrs}h ${pad(mins)}m ${pad(secs)}s`;
 
-    if(diff===0){
+    if (diff === 0) {
       clearInterval(timer);
       el.textContent = 'Expired';
-      el.style.background='#6b0000';
-      el.style.color='#fff';
+      el.style.background = '#6b0000';
+      el.style.color = '#fff';
     }
   }
 
-  tick();
-  const timer = setInterval(tick, 1000);
+  tick();  // Update immediately
+  const timer = setInterval(tick, 1000);  // Update every second
 })();
-
-function openOverlay(){document.getElementById('overlay').style.display='flex';}
-function closeOverlay(){document.getElementById('overlay').style.display='none';}
 </script>
 
 </body>
